@@ -1,6 +1,7 @@
 
 export default function(resultsFromSpectral, object){
 
+
   /* Change object values after adding warns and errors */
   let setObjectValue = (array, value, obj) => {
     if (array.length > 1) {
@@ -11,7 +12,7 @@ export default function(resultsFromSpectral, object){
       return true;
     }  
   }
-  
+
 
   /* Define helper */
   let trial;
@@ -27,12 +28,17 @@ export default function(resultsFromSpectral, object){
       pathToChange.push(field);
       trial = trial[field];
 
-      results.severityLabel === 'warn' && trial !== '' && trial !== String && trial !== undefined ? trial.warn = true : false;        
-      results.severityLabel === 'error' && trial !== '' && trial !== String && trial !== undefined ? trial.error = true : false;
+      if(Array.isArray(trial)){
+        results.severityLabel === 'warn' ? trial.push("warn") : false;  
+        results.severityLabel === 'error' ? trial.push("error") : false;
+      } else { 
+        results.severityLabel === 'warn' && trial !== '' && trial !== String && trial !== undefined ? trial.warn = true : false;        
+        results.severityLabel === 'error' && trial !== '' && trial !== String && trial !== undefined ? trial.error = true : false;
+      }
         
       setObjectValue(pathToChange, trial, object);
     });
   }
-  
+
   return(object);
 }
