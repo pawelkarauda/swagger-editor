@@ -4,8 +4,14 @@ import AceEditor from 'react-ace';
 import 'brace/mode/json';
 import 'brace/theme/monokai'
 
-class CodeEditor extends React.Component  {
+import { observer } from 'mobx-react';
+import { swagState } from '../store/swagState';
 
+@observer
+class CodeEditor extends React.Component  {
+  componentDidMount(){
+    swagState.validateJSON(swagState.json);
+  }
 
   render() {
     return (
@@ -14,9 +20,10 @@ class CodeEditor extends React.Component  {
           mode="json"
           theme="monokai"
           name="UNIQUE_ID_OF_DIV"
-          value={'magic code here'}
+          value={swagState.json}
           editorProps={{$blockScrolling: true}}
           wrapEnabled={true}
+          onChange={e => swagState.validateJSON(e)}
           debounceChangePeriod={300}
           fontSize={15}
         />
