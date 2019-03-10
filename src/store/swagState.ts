@@ -1,16 +1,16 @@
 import { observable, action } from 'mobx';
 import spectralValidator from '../validation/spectralValidator';
-const file = require("../../spec/petstore.oas2.json");
 
 
-class SwaggerEditorState {
+export class SwaggerEditorState {
 
-  @observable json: string = JSON.stringify(file, null, 4)
+  @observable json: string
 
-  @observable validatedJSON: object = file
+  @observable validatedJSON: object = {}
 
   @action
   validateJSON(newValue) {
+    this.json = newValue;
     let object;
     try {
       object = JSON.parse(newValue);
@@ -21,4 +21,4 @@ class SwaggerEditorState {
   }
 }
 
-export const swagState = new SwaggerEditorState();
+export default new SwaggerEditorState;

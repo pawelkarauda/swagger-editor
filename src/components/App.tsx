@@ -3,7 +3,7 @@ import CodeEditor from './CodeEditor'
 import TreeView from './TreeView'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import "../App.css";
+import "../assets/App.css";
 
 
 class App extends React.Component {

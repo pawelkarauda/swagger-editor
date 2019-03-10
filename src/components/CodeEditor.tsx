@@ -3,14 +3,21 @@ import * as React from 'react';
 import AceEditor from 'react-ace';
 import 'brace/mode/json';
 import 'brace/theme/monokai'
+import 'brace/theme/terminal'
 
 import { observer } from 'mobx-react';
-import { swagState } from '../store/swagState';
+import SwaggerEditorState from '../store/swagState';
+
+const file = require("../../spec/petstore.oas2.json");
 
 @observer
 class CodeEditor extends React.Component  {
   componentDidMount(){
-    swagState.validateJSON(swagState.json);
+    this.runValidation(JSON.stringify(file, null, 4))
+  }
+
+  runValidation(json){
+    SwaggerEditorState.validateJSON(json);
   }
 
   render() {
@@ -18,12 +25,12 @@ class CodeEditor extends React.Component  {
       <div>
         <AceEditor
           mode="json"
-          theme="monokai"
+          theme="terminal"
           name="UNIQUE_ID_OF_DIV"
-          value={swagState.json}
+          value={SwaggerEditorState.json}
           editorProps={{$blockScrolling: true}}
           wrapEnabled={true}
-          onChange={e => swagState.validateJSON(e)}
+          onChange={e => this.runValidation(e)}
           debounceChangePeriod={300}
           fontSize={15}
         />

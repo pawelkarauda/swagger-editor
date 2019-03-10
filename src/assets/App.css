@@ -8,7 +8,7 @@
 }
 
 .tree{
-  background-color: #272822;
+  background-color: black;
   color: #A6E22E;
   font: 14px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
   height: 100%;
@@ -48,15 +48,17 @@ span.warn{
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #303030; 
 }
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(100, 96, 96); 
+  background: rgb(107, 107, 107); 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(66, 62, 62); 
+  background: rgb(90, 88, 88); 
 }
+
+

@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 import { observer } from 'mobx-react';
-import { swagState } from '../store/swagState';
+import SwaggerEditorState from '../store/swagState';
 
 @observer
 class TreeView extends React.Component  {
 
-  checkArrayForErrors(item, warn){
+  checkForErrors(item, warn){
     let bool = false;
     if(Array.isArray(item)){
       item[item.length - 1] == warn ? bool = true : bool = false;
@@ -18,6 +18,8 @@ class TreeView extends React.Component  {
   }
 
   renderTreeView(object){
+
+    if(object === null && object === undefined) return;
     
     let text = (Object.keys(object).map((key) => {
 
@@ -25,13 +27,13 @@ class TreeView extends React.Component  {
 
       return (typeof obj === 'object' ? 
 
-        (this.checkArrayForErrors(obj, 'warn') && this.checkArrayForErrors(obj, 'error')  ?
+        (this.checkForErrors(obj, 'warn') && this.checkForErrors(obj, 'error')  ?
           '<li> <div class="warning-row"> <span>' + key + '</span> <span><span class="warn"></span><span class="error"></span></span> </div>' : 
 
-        this.checkArrayForErrors(obj, 'warn') && !this.checkArrayForErrors(obj, 'error') ? 
+        this.checkForErrors(obj, 'warn') && !this.checkForErrors(obj, 'error') ? 
           '<li> <div class="warning-row"> <span>' + key + '</span> <span class="warn"></span> </div>' : 
 
-        !this.checkArrayForErrors(obj, 'warn') && this.checkArrayForErrors(obj, 'error') ? 
+        !this.checkForErrors(obj, 'warn') && this.checkForErrors(obj, 'error') ? 
           '<li> <div class="warning-row"> <span>' + key + '</span> <span class="error"></span> </div>' : 
           
         '<li>' + key ) +
@@ -49,7 +51,7 @@ class TreeView extends React.Component  {
   render() {
     return (
       <ul dangerouslySetInnerHTML=
-        {{__html: this.renderTreeView(swagState.validatedJSON)}}>
+        {{__html: this.renderTreeView(SwaggerEditorState.validatedJSON)}}>
       </ul>
     )
   }
